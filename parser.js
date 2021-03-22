@@ -1,8 +1,14 @@
+/**
+ * 更新日志:
+ * 1. 修复正则表达式的错误，之前会少匹配一节课
+ * 2. 增加了注释，删除了无关变量
+ * 
+ */
 function scheduleHtmlParser(html){
     let result = []
 
     //匹配一节课的信息,两个 var teachers = 之间的全部内容
-    var segmentReg = /var[ \t]*teachers[\t ]*=[\t ]*[\s\S]*?(?=var[ \t]*teachers[\t ]*=[\t ]*)/g
+    var segmentReg = /var[ \t]*teachers[\t ]*=[\t ]*[\s\S]*?(?=table0\.activities\[index\]\[table0\.activities\[index\]\.length\][ \t]*=[\t ]*activity;[\r\n\t ]*[vt])/g
 
     //直接匹配到老师的名字
     var actTeacherReg = /(?<=var[ \t]*actTeachers[ \t]*=.*name:[ \t]*\").*?(?=\")/
