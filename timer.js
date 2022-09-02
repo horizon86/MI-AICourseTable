@@ -73,11 +73,11 @@ async function scheduleTimer({
         {
             section: 11,
             startTime: "20:25",
-            endTime: "21:05"
+            endTime: "21:10"
         },
         {
             section: 12,
-            startTime: "21:10",
+            startTime: "21:15",
             endTime: "22:00"
         }], // 课程时间表，注意：总长度要和上边配置的节数加和对齐
     }

@@ -391,21 +391,8 @@ function fetch_ids_from_network(dom = document) {
         }
     }
     return null
-
-    // 本来模拟点击的，但是不知道为什么不行
-
-    let nav = dom.getElementById('main-nav')
-    let lis = nav.getElementsByTagName('li')
-    let suffix = 'courseTableForStd.action'
-
-    for (let idx = 0; idx < lis.length; idx++) {
-        if (lis[idx].getElementsByTagName('a')[0].href.endsWith(suffix)) {
-            console.log('click...')
-            lis[idx].getElementsByTagName('a')[0].click()
-            console.log('clicked')
-        }
-    }
 }
+
 function sleep(time) {
     return new Promise((resolve) => setTimeout(resolve, time));
 }
@@ -508,27 +495,6 @@ async function getSemesterId(dom = document) {
         }
     }
     return null
-
-    
-
-    return '76'
-    // 以下跨域访问，不知道为什么不能在debugger里执行
-    // url = 'https://cdn.jsdelivr.net/gh/horizon86/MI-AICourseTable@semester/semester_id.js'
-    let url = 'https://cdn.jsdelivr.net/gh/horizon86/DRep@master/semester_id.js'
-    let script = dom.createElement('script');
-    script.src = url
-    dom.body.appendChild(script)
-    let res = null
-    script.onload = () => {
-        res = _semester_id()
-    }
-    let timer = 0
-    while (null == res && timer < 200) {
-        await sleep(5)
-        timer++
-    }
-    dom.body.removeChild(script)
-    return res
 }
 
 async function tableQueryXml(dom = document) {
@@ -592,7 +558,7 @@ async function scheduleHtmlProvider(iframeContent = "", frameContent = "", dom =
     await loadTool('AIScheduleTools')
 
     // 模拟点击 “我的课表”
-    
+    console.log('start')    
 
     ret = await tableQueryXml(dom)
 
@@ -600,6 +566,7 @@ async function scheduleHtmlProvider(iframeContent = "", frameContent = "", dom =
         await AIScheduleAlert(ret[1])
         return 'do not continue'
     }
+    console.log('end')
 
     return ret[0]
 }

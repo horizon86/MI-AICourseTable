@@ -51,8 +51,8 @@ function scheduleHtmlParser(html){
         var sectionLines = seg.match(sectionLineReg);
         for (let section_index = 0; section_index < sectionLines.length; section_index++) {
             const secLine = sectionLines[section_index];
-            let sec = {section:Number}
-            sec.section = Number(secLine.match(timeReg)[0]) + 1; // 0-11 to 1-12
+            let sec = null
+            sec = Number(secLine.match(timeReg)[0]) + 1; // 0-11 to 1-12
             re.sections.push(sec);
         }
         result.push(re);
