@@ -12,6 +12,49 @@ async function scheduleTimer({
 
     // 这个函数中也支持使用 AIScheduleTools 譬如给出多条时间配置让用户选择之类的
 
+    function parseToDOM(str) {
+        // https://www.zhihu.com/question/20785073/answer/16175020
+        var div = document.createElement("div")
+        if (typeof str == "string")
+            div.innerHTML = str
+        return div
+    }
+
+    function getWeekInfo() {
+        let xhr = new XMLHttpRequest()
+        let result = ''
+
+        xhr.open('GET', '/eams/homeExt!main.action', false)
+        xhr.onreadystatechange = function () {
+            if (this.readyState == 4) {
+                console.log(this.getAllResponseHeaders())
+                result = this.responseText
+            }
+        }
+
+        try {
+            xhr.send()
+        } catch (error) {
+            console.error(error)
+            return null
+        }
+
+        div = parseToDOM(result)
+        info_div = div.getElementsByClassName('info-box')[0].getElementsByTagName('div')[0]
+        current_week = info_div.getElementsByTagName('span')[0].innerHTML
+        total_week = info_div.getElementsByTagName('i')[0].innerHTML.replace('/', '')
+        return [current_week, total_week]
+    }
+
+    function get_start_semester(current_week) {
+        let today = new Date()
+        let one_day = new Date('2022-09-02').getTime() - new Date('2022-09-01').getTime()
+        start_time = today - (current_week - 1) * 7 * one_day - (today.getDay() - 1) * one_day
+        start_date = new Date(start_time)
+        start_date.setHours(0, 0, 0, 0)
+        return String(start_date.getTime())
+    }
+
     ret = {
         //   totalWeek: 25, // 总周数：[1, 30]之间的整数
         //   startSemester: '', // 开学时间：时间戳，13位长度字符串，推荐用代码生成
@@ -95,47 +138,4 @@ async function scheduleTimer({
 
     // 返回时间配置JSON，所有项都为可选项，如果不进行时间配置，请返回空对象
     // PS: 夏令时什么的还是让用户在夏令时的时候重新导入一遍吧，在这个函数里边适配吧！奥里给！————不愿意透露姓名的嘤某人
-}
-
-function parseToDOM(str) {
-    // https://www.zhihu.com/question/20785073/answer/16175020
-    var div = document.createElement("div");
-    if (typeof str == "string")
-        div.innerHTML = str;
-    return div
-}
-
-function getWeekInfo() {
-    let xhr = new XMLHttpRequest();
-    let result = ''
-
-    xhr.open('GET', '/eams/homeExt!main.action', false);
-    xhr.onreadystatechange = function () {
-        if (this.readyState == 4) {
-            console.log(this.getAllResponseHeaders());
-            result = this.responseText;
-        }
-    };
-
-    try {
-        xhr.send()
-    } catch (error) {
-        console.error(error)
-        return null
-    }
-
-    div = parseToDOM(result)
-    info_div = div.getElementsByClassName('info-box')[0].getElementsByTagName('div')[0]
-    current_week = info_div.getElementsByTagName('span')[0].innerHTML
-    total_week = info_div.getElementsByTagName('i')[0].innerHTML.replace('/', '')
-    return [current_week, total_week]
-}
-
-function get_start_semester(current_week) {
-    let today = new Date()
-    let one_day = new Date('2022-09-02').getTime() - new Date('2022-09-01').getTime()
-    start_time = today - (current_week - 1) * 7 * one_day - (today.getDay() - 1) * one_day
-    start_date = new Date(start_time)
-    start_date.setHours(0,0,0,0)
-    return String(start_date.getTime())
 }

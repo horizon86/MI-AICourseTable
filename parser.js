@@ -31,31 +31,31 @@ function scheduleHtmlParser(html){
     var timeReg = /(?<=index[\t ]*=[\t ]*.*?unitCount[\t ]*\+[\t ]*)[0-9][0-1]?/
 
 
-    var mhtml =String(html);
+    var mhtml =String(html)
 
-    var segs = mhtml.match(segmentReg);
+    var segs = mhtml.match(segmentReg)
     for (let seg_index = 0; seg_index < segs.length; seg_index++) {
-        const seg = segs[seg_index];
+        const seg = segs[seg_index]
         let re={name: String,position:String,teacher: String,weeks:[],day:Number,sections:[]}
-        re.name = seg.match(nameReg)[0];
-        re.position = seg.match(roomReg)[0];
-        re.teacher = seg.match(actTeacherReg)[0];
-        re.day = Number(seg.match(dayReg)[0]) + 1;//1 is Monday or 0 is Monday? 0-6 to 1-7
-        let week = seg.match(weekReg)[0];
+        re.name = seg.match(nameReg)[0]
+        re.position = seg.match(roomReg)[0]
+        re.teacher = seg.match(actTeacherReg)[0]
+        re.day = Number(seg.match(dayReg)[0]) + 1//1 is Monday or 0 is Monday? 0-6 to 1-7
+        let week = seg.match(weekReg)[0]
         for (let i = 0; i < week.length; i++) {
             if(week[i] == '1'){
-                re.weeks.push(i);
+                re.weeks.push(i)
             }
         }
 
-        var sectionLines = seg.match(sectionLineReg);
+        var sectionLines = seg.match(sectionLineReg)
         for (let section_index = 0; section_index < sectionLines.length; section_index++) {
-            const secLine = sectionLines[section_index];
+            const secLine = sectionLines[section_index]
             let sec = null
-            sec = Number(secLine.match(timeReg)[0]) + 1; // 0-11 to 1-12
-            re.sections.push(sec);
+            sec = Number(secLine.match(timeReg)[0]) + 1 // 0-11 to 1-12
+            re.sections.push(sec)
         }
-        result.push(re);
+        result.push(re)
     }
-    return result;
+    return result
 }
