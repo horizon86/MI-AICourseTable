@@ -2,7 +2,8 @@
  * 更新日志:
  * 1. 修复正则表达式的错误，之前会少匹配一节课
  * 2. 增加了注释，删除了无关变量
- * 
+ * 2022/11/1:Zhaosn
+ * 1. 分开了parser和timer
  */
 function scheduleHtmlParser(html){
     let result = []
@@ -57,69 +58,6 @@ function scheduleHtmlParser(html){
         }
         result.push(re);
     }
-    let ret = {courseInfos: result, sectionTimes :[]}
-    ret.sectionTimes = [
-        {
-            "section": 1,
-            "startTime": "08:30",
-            "endTime": "09:15"
-        },
-        {
-            "section": 2,
-            "startTime": "09:20",
-            "endTime": "10:05"
-        },
-        {
-            "section": 3,
-            "startTime": "10:25",
-            "endTime": "11:10"
-        },
-        {
-            "section": 4,
-            "startTime": "11:15",
-            "endTime": "12:00"
-        },
-        {
-            "section": 5,
-            "startTime": "13:30",
-            "endTime": "14:15"
-        },
-        {
-            "section": 6,
-            "startTime": "14:20",
-            "endTime": "15:05"
-        },
-        {
-            "section": 7,
-            "startTime": "15:25",
-            "endTime": "16:10"
-        },
-        {
-            "section": 8,
-            "startTime": "16:15",
-            "endTime": "17:00"
-        },
-        {
-            "section": 9,
-            "startTime": "18:30",
-            "endTime": "19:15"
-        },
-        {
-            "section": 10,
-            "startTime": "19:20",
-            "endTime": "20:05"
-        },
-        {
-            "section": 11,
-            "startTime": "20:25",
-            "endTime": "21:05"
-        },
-        {
-            "section": 12,
-            "startTime": "21:10",
-            "endTime": "22:00"
-        }
-    ]
-
-    return ret;
+    
+    return result;
 }

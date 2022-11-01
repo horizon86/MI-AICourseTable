@@ -52,8 +52,10 @@ function tableQueryXml(dom = document) {
     let xhr = new XMLHttpRequest();
     xhr.open('POST', '/eams/courseTableForStd!courseTable.action', false);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
-    xhr.setRequestHeader("Referer", "http://classes.tju.edu.cn/eams/courseTableForStd.action");
-    let ids = getids(dom);
+    //xhr.setRequestHeader("Referer", "http://classes.tju.edu.cn/eams/courseTableForStd.action");
+	//check:https://stackoverflow.com/questions/27218525/set-referer-for-xmlhttprequest
+	//这里设置 Referer 会被浏览器报错，不用也没有问题 -2022/11/1留
+    let ids = getids(dom);//调用
     if(null == ids){
         ids = getids_noiframe(dom);
     }
@@ -63,7 +65,7 @@ function tableQueryXml(dom = document) {
     }
 
     //这个semester.id每个学期都要改
-    let data = 'ignoreHead=1&setting.kind=std&startWeek=&semester.id=48&ids={ids}';
+    let data = 'ignoreHead=1&setting.kind=std&startWeek=&semester.id=76&ids={ids}';
     const idsReg = /\{ids\}/
     data = data.replace(idsReg, ids);
 
