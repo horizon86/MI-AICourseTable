@@ -44,10 +44,9 @@ function scheduleHtmlProvider(iframeContent = "", frameContent = "", dom = docum
 		}
 		return null
 	}
-	function getSemesterid(dom = document) {//获取包含 semesterid 的表单。代码由菜鸟教程网站的 AJAX 教程修改而来
+	function getSemesterid(dom = document) {
+		//获取包含 semesterid 的表单。代码由菜鸟教程网站的 AJAX 教程修改而来
 		let xmlhttp
-		xmlhttp.open("POST","/eams/dataQuery.action",true)
-		xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded; charset=UTF-8")
 		let result = ""
 		if (window.XMLHttpRequest) {
 			// IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
@@ -62,6 +61,8 @@ function scheduleHtmlProvider(iframeContent = "", frameContent = "", dom = docum
 			  result = xmlhttp.responseText
 			}
 		}
+		xmlhttp.open('POST', '/eams/dataQuery.action', false)
+		xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded; charset=UTF-8")
 		try {
 			xmlhttp.send("dataType=semesterCalendar")
 		} catch (error) {
@@ -97,7 +98,6 @@ function scheduleHtmlProvider(iframeContent = "", frameContent = "", dom = docum
 		sessionid = raw.match(reg)
 		console.log("id: " + sessionid)
 		//console.log(reg)
-		console.log(year)
 		return sessionid
 	}
 	function tableQueryXml(dom = document) {
@@ -115,7 +115,9 @@ function scheduleHtmlProvider(iframeContent = "", frameContent = "", dom = docum
 			console.error("ids is null")
 			return null
 		}
-		let semesterid = locateSemesterid(getSemesterid(dom))//调用
+		let semidRaw = getSemesterid(dom)
+		let semesterid = locateSemesterid(semidRaw)//调用
+		console.log("im here at: " + semesterid)
 		if(null == semesterid){
 			console.error("Semesterid is null")
 			return null
