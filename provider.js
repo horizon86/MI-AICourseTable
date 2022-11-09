@@ -1,3 +1,12 @@
+/**
+ * author: 
+ * https://github.com/horizon86
+ * https://github.com/Zhaosn
+ * opensource: github.com/horizon86/MI-AICourseTable
+ 
+ * 获取原始信息，需要在课表页面执行
+ */
+
 function scheduleHtmlProvider(iframeContent = "", frameContent = "", dom = document) {
 	function getids_noiframe(dom = document) {
 		var scripts = dom.getElementsByTagName("script")
@@ -117,7 +126,7 @@ function scheduleHtmlProvider(iframeContent = "", frameContent = "", dom = docum
 		}
 		let semidRaw = getSemesterid(dom)
 		let semesterid = locateSemesterid(semidRaw)//调用
-		console.log("im here at: " + semesterid)
+		//console.log("im here at: " + semesterid)
 		if(null == semesterid){
 			console.error("Semesterid is null")
 			return null

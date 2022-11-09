@@ -1,9 +1,12 @@
 /**
+ * author: 
+ * https://github.com/horizon86
+ * opensource: github.com/horizon86/MI-AICourseTable
+ 
  * 更新日志:
  * 1. 修复正则表达式的错误，之前会少匹配一节课
  * 2. 增加了注释，删除了无关变量
- * 2022/11/1:Zhaosn
- * 1. 分开了parser和timer
+ 
  */
 function scheduleHtmlParser(html){
     let result = []
